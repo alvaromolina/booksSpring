@@ -2,6 +2,8 @@ package com.ucbcba.books.controllers;
 
 
 import com.ucbcba.books.entities.Book;
+import com.ucbcba.books.entities.BookCategory;
+import com.ucbcba.books.services.BookCategoryService;
 import com.ucbcba.books.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +20,18 @@ import java.util.List;
 @Controller
 public class BookController {
     BookService bookService;
+    BookCategoryService bookCategoryService;
 
 
     @Autowired
     public void setBookService(BookService bookService) {
         this.bookService = bookService;
+    }
+
+
+    @Autowired
+    public void setBookCategoryService(BookCategoryService bookCategoryService) {
+        this.bookCategoryService = bookCategoryService;
     }
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
@@ -58,8 +67,13 @@ public class BookController {
     }
     @RequestMapping(value = "/book/new", method = RequestMethod.GET)
     public String newBook( Model model) {
-        model.addAttribute("errorLikes", "");
+        List<BookCategory> bookCategories  =
+                (List) bookCategoryService.listAllBookCategories();
 
+        model.addAttribute("book", new Book());
+
+        model.addAttribute("errorLikes", "");
+        model.addAttribute("bookCategories", bookCategories);
 
         return "newBook";
     }
@@ -69,6 +83,7 @@ public class BookController {
                          BindingResult bindingResult,
                          Model model) {
 
+        System.out.println("Book category " + book.getBookCategory().getId());
         if(bindingResult.hasErrors()){
             String errorLikes =bindingResult.getFieldError("likes").getDefaultMessage();
             model.addAttribute("errorLikes", errorLikes);

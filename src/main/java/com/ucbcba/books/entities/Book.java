@@ -17,7 +17,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "book_category_id")
-    BookCategory bookCategory;
+    private BookCategory bookCategory;
 
     @Min(value = 0, message ="El valor debe ser mayor a 0")
     private Integer likes;
@@ -32,10 +32,10 @@ public class Book {
     }
 
     public BookCategory getBookCategory() {
-        return bookCategory;
+        return this.bookCategory;
     }
 
-    public void setBookCategory(BookCategory BookCategory) {
+    public void setBookCategory(BookCategory bookCategory) {
         this.bookCategory = bookCategory;
     }
 
