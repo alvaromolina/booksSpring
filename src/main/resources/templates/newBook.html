@@ -17,6 +17,13 @@
         <option th:each="bookCategory: ${bookCategories}" th:value="${bookCategory.id}"  th:text="${bookCategory.name}"></option>
     </select>
 
+    <br>
+    <b>Mostrar:</b>
+    <select name="mostrar" id="mostrar">
+        <option value="1">SI</option>
+        <option value="0">NO</option>
+    </select>
+
     <input type="submit" value="Guardar">
 </form>
 </body>

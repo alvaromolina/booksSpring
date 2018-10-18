@@ -8,7 +8,12 @@
 <form action="/book" method="POST">
     <input type="hidden" name="id" th:value="${book.id}">
     <b>Title:</b><input type="text" name="title" th:value="${book.title}">
-    <b>Likes:</b><input type="text" name="likes" th:value="${book.likes}">
+    <br>
+    <b>Mostrar:</b>
+    <select name="mostrar" id="mostrar">
+        <option value="1">SI</option>
+        <option value="0">NO</option>
+    </select>
     <input type="submit" value="Guardar">
 </form>
 </body>

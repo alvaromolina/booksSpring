@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,7 +38,14 @@ public class BookController {
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String index( Model model) {
         List<Book> books  = (List) bookService.listAllBooks();
-        model.addAttribute("books", books);
+        List<Book> tmpBooks = new ArrayList<Book>();
+
+        for(Book book : books){
+            if(book.getMostrar() != null && book.getMostrar()){
+                tmpBooks.add(book);
+            }
+        }
+        model.addAttribute("books", tmpBooks);
         return "books";
     }
 
@@ -83,7 +91,6 @@ public class BookController {
                          BindingResult bindingResult,
                          Model model) {
 
-        System.out.println("Book category " + book.getBookCategory().getId());
         if(bindingResult.hasErrors()){
             String errorLikes =bindingResult.getFieldError("likes").getDefaultMessage();
             model.addAttribute("errorLikes", errorLikes);

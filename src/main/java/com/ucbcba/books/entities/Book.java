@@ -10,10 +10,13 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
+    private Integer id;
 
     @NotNull
-    String title;
+    private String title;
+
+
+    private Boolean mostrar;
 
     @ManyToOne
     @JoinColumn(name = "book_category_id")
@@ -53,5 +56,13 @@ public class Book {
 
     public void setLikes(Integer likes) {
         this.likes = likes;
+    }
+
+    public Boolean getMostrar() {
+        return mostrar;
+    }
+
+    public void setMostrar(Boolean mostrar) {
+        this.mostrar = mostrar;
     }
 }
